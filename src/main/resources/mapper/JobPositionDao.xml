@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.supermarket.pssmsys.dao.JobDepartmentDao">
-	<select id="queryJobDepartmentAll" resultType="com.supermarket.pssmsys.entity.JobDepartment">
+<mapper namespace="com.supermarket.pssmsys.dao.JobPositionDao">
+	<select id="queryJobPositionAll" resultType="com.supermarket.pssmsys.entity.JobPosition">
 		SELECT
 		id,
 		name,
@@ -11,9 +11,9 @@
 		create_time,
 		edit_time
 		FROM
-		pssm_job_department
+		pssm_job_position
 	</select>
-	<select id="queryJobDeparTmentBytargetItem" resultType="com.supermarket.pssmsys.entity.JobDepartment">
+	<select id="queryJobPositionByTargetItem" resultType="com.supermarket.pssmsys.entity.JobPosition">
 		SELECT
 		id,
 		name,
@@ -21,21 +21,21 @@
 		create_time,
 		edit_time
 		FROM
-		pssm_job_department
+		pssm_job_position
 		WHERE
 		id = #{targetItem.id}
 	</select>
-	<insert id="insertIntoJobDepartmentByTargetItem" parameterType="com.supermarket.pssmsys.entity.JobDepartment"
+	<insert id="insertIntoJobPositionByTargetItem" parameterType="com.supermarket.pssmsys.entity.JobPosition"
 		useGeneratedKeys="true">
 		INSERT INTO
-		pssm_job_department(name,content,create_time,edit_time)
+		pssm_job_position(name,content,create_time,edit_time)
 		VALUES
 		(#{targetItem.name},#{targetItem.content},#{targetItem.createTime},
 		#{targetItem.editTime})
 	</insert>
-	<update id="updateJobDepartmentByTargetItem" parameterType="com.supermarket.pssmsys.entity.JobDepartment"
+	<update id="updateJobPositionByTargetItem" parameterType="com.supermarket.pssmsys.entity.JobPosition"
 		>
-		UPDATE pssm_job_department
+		UPDATE pssm_job_position
 		<set>
 			<if test="targetItem.name!=null">name=#{targetItem.name},</if>
 			<if test="targetItem.content!=null">content=#{targetItem.content},</if>
@@ -45,9 +45,9 @@
 		WHERE
 		id = #{targetItem.id}	
 	</update>
-	<delete id="deleteJobDepartmentByTargetItem">
+	<delete id="deleteJobPositionByTargetItem">
 		DELETE FROM
-		pssm_job_department
+		pssm_job_position
 		WHERE
 		id = #{targetItem.id}
 	</delete>

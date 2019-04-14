@@ -10,9 +10,9 @@ public class JobDepartment {
 		//部门职能介绍
 		private String content;
 		//创建时间
-		private Timestamp createdTime;
+		private Timestamp createTime;
 		//修改时间
-		private Timestamp editedTime;
+		private Timestamp editTime;
 		
 		public long getId() {
 			return id;
@@ -32,16 +32,17 @@ public class JobDepartment {
 		public void setContent(String content) {
 			this.content = content;
 		}
-		public Timestamp getCreatedTime() {
-			return createdTime;
+		public Timestamp getCreateTime() {
+			return createTime;
 		}
-		public void setCreatedTime(Timestamp createdTime) {
-			this.createdTime = createdTime;
+		public void setCreateTime(Timestamp createTime) {
+			this.createTime = createTime;
 		}
-		public Timestamp getEditedTime() {
-			return editedTime;
+		public Timestamp getEditTime() {
+			return editTime;
 		}
-		public void setEditedTime(Timestamp editedTime) {
-			this.editedTime = editedTime;
+		public void setEditTime(Timestamp editTime) {
+			this.editTime = editTime;
 		}
+		
 }

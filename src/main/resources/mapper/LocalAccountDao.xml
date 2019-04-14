@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.supermarket.pssmsys.dao.LocalAccountDao">
+	<resultMap id="localAccountMap" type="com.supermarket.pssmsys.entity.LocalAccount">
+		<id column="laid" property="id" />
+		<result column="account_string" property="accountString" />
+		<result column="password_string" property="passwordString" />
+		<result column="create_time" property="createTime" />
+		<result column="edit_time" property="editTime" />
+		<result column="uiid" property="userId" />
+		<result column="uiname" property="userNameString" />
+	</resultMap>
+	<select id="queryLocalAccountAll" resultMap="localAccountMap" resultType="com.supermarket.pssmsys.entity.LocalAccount">
+		SELECT
+		la.id laid,
+		la.user_id,
+		la.account_string,
+		la.password_string,
+		la.create_time,
+		la.edit_time,
+		ui.id uiid,
+		ui.name uiname
+		FROM
+		hr_local_account la
+		INNER JOIN
+		hr_user_info ui
+		ON
+		ui.id=la.user_id
+	</select>
+	<select id="queryLocalAccountByTargetItem" resultMap="localAccountMap" resultType="com.supermarket.pssmsys.entity.LocalAccount">
+		SELECT
+		la.id,
+		la.user_id,
+		la.account_string,
+		la.password_string,
+		la.create_time,
+		la.edit_time,
+		ui.id uiid,
+		ui.name uiname
+		FROM
+		hr_local_account la
+		INNER JOIN
+		hr_user_info ui
+		ON
+		ui.id=la.user_id
+		<where>
+			<if test="targetItem.id>0">
+			and la.id = #{targetItem.id}
+			</if>
+			<if test="targetItem.userId>0">
+			and la.user_id = #{targetItem.userId}
+			</if>
+			<if test="targetItem.accountString!=null">
+			and la.account_string = #{targetItem.accountString}
+			</if>
+			<if test="targetItem.passwordString!=null">
+			and la.password_string = #{targetItem.passwordString}
+			</if>
+		</where>
+	</select>
+	<insert id="insertIntoLocalAccountByTargetItem" parameterType="com.supermarket.pssmsys.entity.LocalAccount"
+		useGeneratedKeys="true">
+		INSERT INTO
+		hr_local_account(user_id,account_string,
+		password_string,create_time,edit_time)
+		VALUES
+		(#{targetItem.userId},#{targetItem.accountString},#{targetItem.passwordString},
+		#{targetItem.createTime},#{targetItem.editTime})
+	</insert>
+	<update id="updateLocalAccountByTargetItem" parameterType="com.supermarket.pssmsys.entity.LocalAccount"
+		>
+		UPDATE hr_local_account
+		<set>
+			<if test="targetItem.accountString!=null">account_string=#{targetItem.accountString},</if>
+			<if test="targetItem.passwordString!=null">password_string=#{targetItem.passwordString},</if>
+			<if test="targetItem.createTime!=null">create_time=#{targetItem.createTime},</if>
+			<if test="targetItem.editTime!=null">edit_time=#{targetItem.editTime}</if>
+		</set>
+		WHERE
+		id=#{targetItem.id}
+	</update>
+	<delete id="deleteLocalAccountByTargetItem">
+		DELETE FROM
+		hr_local_account
+		WHERE
+		id=#{targetItem.id}
+	</delete>
+</mapper>
+    

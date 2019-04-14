@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.supermarket.pssmsys.dao.OutofStockListDao">
+	<select id="queryOutofStockListAll" resultType="com.supermarket.pssmsys.entity.OutofStockList">
+		SELECT
+		id,
+		unique_id,
+		goods_id,
+		outof_stock_number,
+		outof_stock_price,
+		is_finished,
+		supplier_name,
+		create_time,
+		edit_time
+		FROM
+		pssm_outof_stock_list
+	</select>
+	<select id="queryOutofStockListBytargetItem" resultType="com.supermarket.pssmsys.entity.OutofStockList">
+		SELECT
+		id,
+		unique_id,
+		goods_id,
+		outof_stock_number,
+		outof_stock_price,
+		is_finished,
+		supplier_name,
+		create_time,
+		edit_time
+		FROM
+		pssm_outof_stock_list
+		WHERE
+		id = #{targetItem.id}
+	</select>
+	<insert id="insertIntoOutofStockListByTargetItem" parameterType="com.supermarket.pssmsys.entity.OutofStockList"
+		useGeneratedKeys="true">
+		INSERT INTO
+		pssm_outof_stock_list(unique_id,goods_id,outof_stock_number,outof_stock_price,is_finished,
+		supplier_name,create_time,edit_time)
+		VALUES
+		(#{targetItem.uniqueId},#{targetItem.goodsId},#{targetItem.outofStockNumber},
+		#{targetItem.outofStockPrice},#{targetItem.isFinished},#{targetItem.supplierName},
+		#{targetItem.createTime},#{targetItem.editTime})
+	</insert>
+	<update id="updateOutofStockListByTargetItem" parameterType="com.supermarket.pssmsys.entity.OutofStockList"
+		>
+		UPDATE pssm_outof_stock_list
+		<set>
+			<if test="targetItem.uniqueId!=null">unique_id=#{targetItem.uniqueId},</if>
+			<if test="targetItem.goodsId!=null">goods_id=#{targetItem.goodsId},</if>
+			<if test="targetItem.outofStockNumber!=null">outof_stock_number=#{targetItem.outofStockNumber},</if>
+			<if test="targetItem.outofStockPrice!=null">outof_stock_price=#{targetItem.outofStockPrice},</if>
+			<if test="targetItem.isFinished!=null">is_finished=#{targetItem.isFinished},</if>
+			<if test="targetItem.supplierName!=null">supplier_name=#{targetItem.supplierName},</if>
+			<if test="targetItem.createdTime!=null">create_time=#{targetItem.createTime},</if>
+			<if test="targetItem.editedTime!=null">edit_time=#{targetItem.editTime}</if>
+		</set>
+		WHERE
+		id = #{targetItem.id}	
+	</update>
+	<delete id="deleteOutofStockListByTargetItem">
+		DELETE FROM
+		pssm_outof_stock_list
+		<where>
+		    <if test="targetItem.id>0">
+			and id = #{targetItem.id}
+			</if>
+			 <if test="targetItem.uniqueId>0">
+			and unique_id = #{targetItem.uniqueId}
+			</if>
+		</where>
+	</delete>
+</mapper>
+    

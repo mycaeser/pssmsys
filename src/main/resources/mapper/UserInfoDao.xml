@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.supermarket.pssmsys.dao.UserInfoDao">
+	<resultMap id="userInfoMap" type="com.supermarket.pssmsys.entity.UserInfo">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="gender" property="gender" />
+		<result column="id_card" property="idCard" />
+		<result column="is_married" property="isMarried" />
+		<result column="phone" property="phone" />
+		<result column="priority" property="priority" />
+		<result column="entry_time" property="entryTime" />
+		<result column="full_time" property="fullTime" />
+		<result column="create_time" property="createTime" />
+		<result column="edit_time" property="editTime" />
+		<association property="jobDepartment" column="id"
+			javaType="com.supermarket.pssmsys.entity.JobDepartment">
+			<id column="jdid" property="id" />
+			<result column="jdname" property="name" />
+		</association>
+		<association property="jobPosition" column="id"
+			javaType="com.supermarket.pssmsys.entity.JobPosition">
+			<id column="jpid" property="id" />
+			<result column="jpname" property="name" />
+		</association>
+	</resultMap>
+	<select id="queryUserInfoAll" resultMap="userInfoMap" resultType="com.supermarket.pssmsys.entity.UserInfo">
+		SELECT
+		ui.id,
+		ui.name,
+		ui.gender,
+		ui.id_card,
+		ui.is_married,
+		ui.department_id,
+		ui.position_id,
+		ui.phone,
+		ui.priority,
+		ui.entry_time,
+		ui.full_time,
+		ui.create_time,
+		ui.edit_time,
+		jd.id jdid,
+		jd.name jdname,
+		jp.id jpid,
+		jp.name jpname
+		FROM
+		pssm_user_info ui
+		INNER JOIN
+		pssm_job_department jd
+		ON
+		ui.department_id=jd.id
+		INNER JOIN
+		pssm_job_position jp
+		ON
+		ui.position_id=jp.id
+	</select>
+	<select id="queryUserInfoByRange" resultMap="userInfoMap" resultType="com.supermarket.pssmsys.entity.UserInfo">
+		SELECT
+		ui.id,
+		ui.name,
+		ui.gender,
+		ui.id_card,
+		ui.is_married,
+		ui.department_id,
+		ui.position_id,
+		ui.phone,
+		ui.priority,
+		ui.entry_time,
+		ui.full_time,
+		ui.create_time,
+		ui.edit_time,
+		jd.id jdid,
+		jd.name jdname,
+		jp.id jpid,
+		jp.name jpname
+		FROM
+		pssm_user_info ui
+		INNER JOIN
+		pssm_job_department jd
+		ON
+		ui.department_id=jd.id
+		INNER JOIN
+		pssm_job_position jp
+		ON
+		ui.position_id=jp.id
+		LIMIT #{start},#{end};
+	</select>
+	<select id="queryUserInfoBySomeone" resultMap="userInfoMap" resultType="com.supermarket.pssmsys.entity.UserInfo">
+		SELECT
+		ui.id,
+		ui.name,
+		ui.gender,
+		ui.id_card,
+		ui.is_married,
+		ui.department_id,
+		ui.position_id,
+		ui.phone,
+		ui.priority,
+		ui.entry_time,
+		ui.full_time,
+		ui.create_time,
+		ui.edit_time,
+		jd.id jdid,
+		jd.name jdname,
+		jp.id jpid,
+		jp.name jpname
+		FROM
+		pssm_user_info ui
+		INNER JOIN
+		pssm_job_department jd
+		ON
+		ui.department_id=jd.id
+		INNER JOIN
+		pssm_job_position jp
+		ON
+		ui.position_id=jp.id
+		<where>
+			<if test="someone.id>0">
+			and ui.id = #{someone.id}
+			</if>
+			<if test="someone.gender!=null">
+			and ui.gender = #{someone.gender}
+			</if>
+			<if test="someone.name!=null">
+			and ui.name = #{someone.name}
+			</if>
+			<if test="someone.idCard!=null">
+			and ui.id_card = #{someone.idCard}
+			</if>
+			<if test="someone.isMarried!=null">
+			and ui.is_married = #{someone.isMarried}
+			</if>
+			<if test="someone.jobDepartment!=null and someone.jobDepartment.id!=null">
+			and ui.department_id = #{someone.jobDepartment.id}
+			</if>
+			<if test="someone.jobPosition!=null and someone.jobPosition.id!=null">
+			and ui.position_id = #{someone.jonPosition.id}
+			</if>
+			<if test="someone.phone!=null">
+			and ui.phone = #{someone.phone}
+			</if>
+			<if test="someone.entryTime!=null">
+			and ui.entry_time = #{someone.entryTime}
+			</if>
+			<if test="someone.fullTime!=null">
+			and ui.full_time = #{someone.fullTime}
+			</if>
+		</where>
+	</select>
+	<insert id="insertIntoUserInfoBySomeone" parameterType="com.supermarket.pssmsys.entity.UserInfo"
+		useGeneratedKeys="true">
+		INSERT INTO
+		pssm_user_info(name,gender,id_card,is_married,department_id,position_id,
+		phone,priority,entry_time,full_time,create_time,edit_time)
+		VALUES
+		(#{someone.name},#{someone.gender},#{someone.idCard},
+		#{someone.isMarried},#{someone.jobDepartment.id},#{someone.jobPosition.id},
+		#{someone.phone},#{someone.priority},#{someone.entryTime},
+		#{someone.fullTime},#{someone.createTime},#{someone.editTime})
+	</insert>
+	<update id="updateUserInfoBySomeone" parameterType="com.supermarket.pssmsys.entity.UserInfo"
+		>
+		UPDATE pssm_user_info
+		<set>
+			<if test="someone.name!= null">name=#{someone.name},</if>
+			<if test="someone.gender!= null">gender=#{someone.gender},</if>
+			<if test="someone.idCard!= null">id_card=#{someone.idCard},</if>
+			<if test="someone.isMarried!= null">is_married=#{someone.isMarried},</if>
+			<if test="someone.jobDepartment!=null and someone.jobDepartment.id!= null">department_id=#{someone.jobDepartment.id},</if>
+			<if test="someone.jobPosition!=null and someone.jobPosition.id!= null">position_id=#{someone.jobPosition.id},</if>
+			<if test="someone.phone!= null">phone=#{someone.phone},</if>
+			<if test="someone.priority!= null">priority=#{someone.priority},</if>
+			<if test="someone.entryTime!= null">entry_time=#{someone.entryTime},</if>
+			<if test="someone.fullTime!= null">full_time=#{someone.fullTime},</if>
+			<if test="someone.editTime!= null">edit_time=#{someone.editTime}</if>
+		</set>
+		WHERE
+		id = #{someone.id}
+	
+	</update>
+	<update id="updateUserInfoBySomeoneOnlyChangeNameOrIDcard" parameterType="com.supermarket.pssmsys.entity.UserInfo"
+		>
+		UPDATE pssm_user_info
+		<set>
+			<if test="someone.name!= null">name=#{someone.name},</if>
+			<if test="someone.idCard!= null">id_card=#{someone.idCard},</if>
+		</set>
+		WHERE
+		id = #{someone.id}
+	</update>
+	<delete id="deleteUserInfoBySomeone">
+		DELETE FROM
+		pssm_user_info
+		<where>
+			<if test="someone.id>0">
+			and id = #{someone.id}
+			</if>
+			<if test="someone.name!=null">
+			and name = #{someone.name}
+			</if>
+			<if test="someone.idCard>0">
+			and id_card = #{someone.idCard}
+			</if>
+		</where>
+	</delete>
+	<select id="queryUserInfoByIdCardLike" resultMap="userInfoMap" resultType="com.supermarket.pssmsys.entity.UserInfo">
+		SELECT
+		ui.id,
+		ui.name,
+		ui.gender,
+		ui.id_card,
+		ui.is_married,
+		ui.department_id,
+		ui.position_id,
+		ui.phone,
+		ui.priority,
+		ui.entry_time,
+		ui.full_time,
+		ui.create_time,
+		ui.edit_time,
+		jd.id jdid,
+		jd.name jdname,
+		jp.id jpid,
+		jp.name jpname
+		FROM
+		pssm_user_info ui
+		INNER JOIN
+		pssm_job_department jd
+		ON
+		ui.department_id=jd.id
+		INNER JOIN
+		pssm_job_position jp
+		ON
+		ui.position_id=jp.id
+		WHERE
+		ui.id_card like '%${someone.idCard}%'
+	</select>
+	<select id="queryUserInfoAllnotFulljob" resultMap="userInfoMap" resultType="com.supermarket.pssmsys.entity.UserInfo">
+		SELECT
+		ui.id,
+		ui.name,
+		ui.gender,
+		ui.id_card,
+		ui.is_married,
+		ui.department_id,
+		ui.position_id,
+		ui.phone,
+		ui.priority,
+		ui.entry_time,
+		ui.full_time,
+		ui.create_time,
+		ui.edit_time,
+		jd.id jdid,
+		jd.name jdname,
+		jp.id jpid,
+		jp.name jpname
+		FROM
+		pssm_user_info ui
+		INNER JOIN
+		pssm_job_department jd
+		ON
+		ui.department_id=jd.id
+		INNER JOIN
+		pssm_job_position jp
+		ON
+		ui.position_id=jp.id
+		WHERE
+			ui.full_time is null
+	</select>
+</mapper>
+    
