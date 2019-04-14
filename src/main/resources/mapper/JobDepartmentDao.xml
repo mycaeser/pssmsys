@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.supermarket.pssmsys.dao.JobDepartmentDao">
+	<select id="queryJobDepartmentAll" resultType="com.supermarket.pssmsys.entity.JobDepartment">
+		SELECT
+		id,
+		name,
+		content,
+		created_time,
+		edited_time
+		FROM
+		pssm_job_department
+	</select>
+	<select id="queryJobDeparTmentBytargetItem" resultType="com.supermarket.pssmsys.entity.JobDepartment">
+		SELECT
+		id,
+		name,
+		content,
+		created_time,
+		edited_time
+		FROM
+		pssm_job_department
+		WHERE
+		id = #{targetItem.id}
+	</select>
+	<insert id="insertIntoJobDepartmentByTargetItem" parameterType="com.supermarket.pssmsys.entity.JobDepartment"
+		useGeneratedKeys="true">
+		INSERT INTO
+		pssm_job_department(name,content,created_time,edited_time)
+		VALUES
+		(#{targetItem.name},#{targetItem.content},#{targetItem.createdTime},
+		#{targetItem.editedTime})
+	</insert>
+	<update id="updateJobDepartmentByTargetItem" parameterType="com.supermarket.pssmsys.entity.JobDepartment"
+		>
+		UPDATE pssm_job_department
+		<set>
+			<if test="targetItem.name!=null">name=#{targetItem.name},</if>
+			<if test="targetItem.content!=null">content=#{targetItem.content},</if>
+			<if test="targetItem.createdTime!=null">created_time=#{targetItem.createdTime},</if>
+			<if test="targetItem.editedTime!=null">edited_time=#{targetItem.editedTime}</if>
+		</set>
+		WHERE
+		id = #{targetItem.id}	
+	</update>
+	<delete id="deleteJobDepartmentByTargetItem">
+		DELETE FROM
+		pssm_job_department
+		WHERE
+		id = #{targetItem.id}
+	</delete>
+</mapper>
+    
