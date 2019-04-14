@@ -1,5 +1,6 @@
 package com.supermarket.pssmsys.entity;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class IntoStockList {
@@ -12,7 +13,7 @@ public class IntoStockList {
 	//进货数量
 	private Integer intoStockNumber;
 	//进货价格
-	private Integer intoStockPrice;
+	private BigDecimal intoStockPrice;
 	//进货是否完成
 	private Integer isFinished;
 	//供应商名称
@@ -45,10 +46,10 @@ public class IntoStockList {
 	public void setIntoStockNumber(Integer intoStockNumber) {
 		this.intoStockNumber = intoStockNumber;
 	}
-	public Integer getIntoStockPrice() {
+	public BigDecimal getIntoStockPrice() {
 		return intoStockPrice;
 	}
-	public void setIntoStockPrice(Integer intoStockPrice) {
+	public void setIntoStockPrice(BigDecimal intoStockPrice) {
 		this.intoStockPrice = intoStockPrice;
 	}
 	public Integer getIsFinished() {

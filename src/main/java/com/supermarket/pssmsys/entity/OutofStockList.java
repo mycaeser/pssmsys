@@ -1,5 +1,6 @@
 package com.supermarket.pssmsys.entity;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class OutofStockList {
@@ -12,7 +13,7 @@ public class OutofStockList {
 	// 出货数量
 	private Integer outofStockNumber;
 	// 出货价格
-	private Integer outofStockPrice;
+	private BigDecimal outofStockPrice;
 	// 出货是否完成
 	private Integer isFinished;
 	// 供应商名称
@@ -53,12 +54,11 @@ public class OutofStockList {
 	public void setOutofStockNumber(Integer outofStockNumber) {
 		this.outofStockNumber = outofStockNumber;
 	}
-
-	public Integer getOutofStockPrice() {
+	public BigDecimal getOutofStockPrice() {
 		return outofStockPrice;
 	}
 
-	public void setOutofStockPrice(Integer outofStockPrice) {
+	public void setOutofStockPrice(BigDecimal outofStockPrice) {
 		this.outofStockPrice = outofStockPrice;
 	}
 

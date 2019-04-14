@@ -15,7 +15,7 @@
 		create_time,
 		edit_time
 		FROM
-		pssm_job_department
+		pssm_goods
 	</select>
 	<select id="queryGoodsBytargetItem" resultType="com.supermarket.pssmsys.entity.Goods">
 		SELECT
@@ -29,14 +29,14 @@
 		create_time,
 		edit_time
 		FROM
-		pssm_job_department
+		pssm_goods
 		WHERE
 		id = #{targetItem.id}
 	</select>
 	<insert id="insertIntoGoodsByTargetItem" parameterType="com.supermarket.pssmsys.entity.Goods"
 		useGeneratedKeys="true">
 		INSERT INTO
-		pssm_job_department(name,category_level2_id,stock_number,input_price,output_price,
+		pssm_goods(name,category_level2_id,stock_number,input_price,output_price,
 		supplier_name,create_time,edit_time)
 		VALUES
 		(#{targetItem.name},#{targetItem.categoryLevel2Id},#{targetItem.stockNumber},
@@ -45,7 +45,7 @@
 	</insert>
 	<update id="updateGoodsByTargetItem" parameterType="com.supermarket.pssmsys.entity.Goods"
 		>
-		UPDATE pssm_job_department
+		UPDATE pssm_goods
 		<set>
 			<if test="targetItem.name!=null">name=#{targetItem.name},</if>
 			<if test="targetItem.categoryLevel2Id>0">category_level2_id=#{targetItem.categoryLevel2Id},</if>
@@ -61,7 +61,7 @@
 	</update>
 	<delete id="deleteGoodsByTargetItem">
 		DELETE FROM
-		pssm_job_department
+		pssm_goods
 		WHERE
 		id = #{targetItem.id}
 	</delete>
