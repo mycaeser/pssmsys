@@ -53,8 +53,8 @@
 			<if test="targetItem.intoStockPrice!=null">into_stock_price=#{targetItem.intoStockPrice},</if>
 			<if test="targetItem.isFinished!=null">is_finished=#{targetItem.isFinished},</if>
 			<if test="targetItem.supplierName!=null">supplier_name=#{targetItem.supplierName},</if>
-			<if test="targetItem.createdTime!=null">create_time=#{targetItem.createTime},</if>
-			<if test="targetItem.editedTime!=null">edit_time=#{targetItem.editTime}</if>
+			<if test="targetItem.createTime!=null">create_time=#{targetItem.createTime},</if>
+			<if test="targetItem.editTime!=null">edit_time=#{targetItem.editTime}</if>
 		</set>
 		WHERE
 		id = #{targetItem.id}	

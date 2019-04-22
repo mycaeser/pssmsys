@@ -53,8 +53,8 @@
 			<if test="targetItem.inputPrice>0">input_price=#{targetItem.inputPrice},</if>
 			<if test="targetItem.outputPrice>0">output_price=#{targetItem.outputPrice},</if>
 			<if test="targetItem.supplierName!=null">supplier_name=#{targetItem.supplierName},</if>
-			<if test="targetItem.createdTime!=null">create_time=#{targetItem.createTime},</if>
-			<if test="targetItem.editedTime!=null">edit_time=#{targetItem.editTime}</if>
+			<if test="targetItem.createTime!=null">create_time=#{targetItem.createTime},</if>
+			<if test="targetItem.editTime!=null">edit_time=#{targetItem.editTime}</if>
 		</set>
 		WHERE
 		id = #{targetItem.id}	
