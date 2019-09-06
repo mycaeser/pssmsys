@@ -10,6 +10,8 @@ public class IntoStockList {
 	private String uniqueId;
 	//商品编号
 	private Integer goodsId;
+	//商品名称
+	private String goddsNameString;
 	//进货数量
 	private Integer intoStockNumber;
 	//进货价格
@@ -39,6 +41,12 @@ public class IntoStockList {
 	}
 	public void setGoodsId(Integer goodsId) {
 		this.goodsId = goodsId;
+	}
+	public String getGoddsNameString() {
+		return goddsNameString;
+	}
+	public void setGoddsNameString(String goddsNameString) {
+		this.goddsNameString = goddsNameString;
 	}
 	public Integer getIntoStockNumber() {
 		return intoStockNumber;

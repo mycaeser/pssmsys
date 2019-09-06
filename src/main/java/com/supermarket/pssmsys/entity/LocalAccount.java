@@ -14,9 +14,9 @@ public class LocalAccount {
 		//密码
 		private String passwordString;
 		//创建时间
-		private Timestamp createdTime;
+		private Timestamp createTime;
 		//编辑时间
-		private Timestamp editedTime;
+		private Timestamp editTime;
 		public long getId() {
 			return id;
 		}
@@ -47,16 +47,17 @@ public class LocalAccount {
 		public void setPasswordString(String passwordString) {
 			this.passwordString = passwordString;
 		}
-		public Timestamp getCreatedTime() {
-			return createdTime;
+		public Timestamp getCreateTime() {
+			return createTime;
 		}
-		public void setCreatedTime(Timestamp createdTime) {
-			this.createdTime = createdTime;
+		public void setCreateTime(Timestamp createTime) {
+			this.createTime = createTime;
 		}
-		public Timestamp getEditedTime() {
-			return editedTime;
+		public Timestamp getEditTime() {
+			return editTime;
 		}
-		public void setEditedTime(Timestamp editedTime) {
-			this.editedTime = editedTime;
+		public void setEditTime(Timestamp editTime) {
+			this.editTime = editTime;
 		}
+		
 }

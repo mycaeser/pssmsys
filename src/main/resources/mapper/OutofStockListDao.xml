@@ -3,35 +3,57 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.supermarket.pssmsys.dao.OutofStockListDao">
-	<select id="queryOutofStockListAll" resultType="com.supermarket.pssmsys.entity.OutofStockList">
+	<resultMap id="outstockMap" type="com.supermarket.pssmsys.entity.OutofStockList">
+		<id column="oslid" property="id" />
+		<result column="unique_id" property="uniqueId" />
+		<result column="goods_id" property="goodsId" />
+		<result column="gsname" property="goddsNameString" />
+		<result column="outof_stock_number" property="outofStockNumber" />
+		<result column="outof_stock_price" property="outofStockPrice" />
+		<result column="is_finished" property="isFinished" />
+		<result column="supplier_name" property="supplierName" />
+		<result column="create_time" property="createTime" />
+		<result column="edit_time" property="editTime" />
+	</resultMap>
+	<select id="queryOutofStockListAll" resultMap="outstockMap"  resultType="com.supermarket.pssmsys.entity.OutofStockList">
 		SELECT
-		id,
-		unique_id,
-		goods_id,
-		outof_stock_number,
-		outof_stock_price,
-		is_finished,
-		supplier_name,
-		create_time,
-		edit_time
+		osl.id oslid,
+		osl.unique_id,
+		osl.goods_id,
+		osl.outof_stock_number,
+		osl.outof_stock_price,
+		osl.is_finished,
+		osl.supplier_name,
+		osl.create_time,
+		osl.edit_time,
+		gs.name gsname
 		FROM
-		pssm_outof_stock_list
+		pssm_outof_stock_list osl
+		INNER JOIN
+		pssm_goods gs
+		ON
+		gs.id=osl.goods_id
 	</select>
-	<select id="queryOutofStockListBytargetItem" resultType="com.supermarket.pssmsys.entity.OutofStockList">
+	<select id="queryOutofStockListBytargetItem" resultMap="outstockMap" resultType="com.supermarket.pssmsys.entity.OutofStockList">
 		SELECT
-		id,
-		unique_id,
-		goods_id,
-		outof_stock_number,
-		outof_stock_price,
-		is_finished,
-		supplier_name,
-		create_time,
-		edit_time
+		osl.id oslid,
+		osl.unique_id,
+		osl.goods_id,
+		osl.outof_stock_number,
+		osl.outof_stock_price,
+		osl.is_finished,
+		osl.supplier_name,
+		osl.create_time,
+		osl.edit_time,
+		gs.name gsname
 		FROM
-		pssm_outof_stock_list
+		pssm_outof_stock_list osl
+		INNER JOIN
+		pssm_goods gs
+		ON
+		gs.id=osl.goods_id
 		WHERE
-		id = #{targetItem.id}
+		osl.id = #{targetItem.id}
 	</select>
 	<insert id="insertIntoOutofStockListByTargetItem" parameterType="com.supermarket.pssmsys.entity.OutofStockList"
 		useGeneratedKeys="true">

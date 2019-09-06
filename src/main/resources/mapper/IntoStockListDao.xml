@@ -3,35 +3,57 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.supermarket.pssmsys.dao.IntoStockListDao">
-	<select id="queryIntoStockListAll" resultType="com.supermarket.pssmsys.entity.IntoStockList">
+	<resultMap id="intostockMap" type="com.supermarket.pssmsys.entity.IntoStockList">
+		<id column="islid" property="id" />
+		<result column="unique_id" property="uniqueId" />
+		<result column="goods_id" property="goodsId" />
+		<result column="gsname" property="goddsNameString" />
+		<result column="into_stock_number" property="intoStockNumber" />
+		<result column="into_stock_price" property="intoStockPrice" />
+		<result column="is_finished" property="isFinished" />
+		<result column="supplier_name" property="supplierName" />
+		<result column="create_time" property="createTime" />
+		<result column="edit_time" property="editTime" />
+	</resultMap>
+	<select id="queryIntoStockListAll" resultMap="intostockMap" resultType="com.supermarket.pssmsys.entity.IntoStockList">
 		SELECT
-		id,
-		unique_id,
-		goods_id,
-		into_stock_number,
-		into_stock_price,
-		is_finished,
-		supplier_name,
-		create_time,
-		edit_time
+		isl.id islid,
+		isl.unique_id,
+		isl.goods_id,
+		isl.into_stock_number,
+		isl.into_stock_price,
+		isl.is_finished,
+		isl.supplier_name,
+		isl.create_time,
+		isl.edit_time,
+		gs.name gsname
 		FROM
-		pssm_into_stock_list
+		pssm_into_stock_list isl
+		INNER JOIN
+		pssm_goods gs
+		ON
+		gs.id=isl.goods_id
 	</select>
-	<select id="queryIntoStockListBytargetItem" resultType="com.supermarket.pssmsys.entity.IntoStockList">
+	<select id="queryIntoStockListBytargetItem" resultMap="intostockMap" resultType="com.supermarket.pssmsys.entity.IntoStockList">
 		SELECT
-		id,
-		unique_id,
-		goods_id,
-		into_stock_number,
-		into_stock_price,
-		is_finished,
-		supplier_name,
-		create_time,
-		edit_time
+		isl.id islid,
+		isl.unique_id,
+		isl.goods_id,
+		isl.into_stock_number,
+		isl.into_stock_price,
+		isl.is_finished,
+		isl.supplier_name,
+		isl.create_time,
+		isl.edit_time,
+		gs.name gsname
 		FROM
-		pssm_into_stock_list
+		pssm_into_stock_list isl
+		INNER JOIN
+		pssm_goods gs
+		ON
+		gs.id=isl.goods_id
 		WHERE
-		id = #{targetItem.id}
+		isl.id = #{targetItem.id}
 	</select>
 	<insert id="insertIntoIntoStockListByTargetItem" parameterType="com.supermarket.pssmsys.entity.IntoStockList"
 		useGeneratedKeys="true">

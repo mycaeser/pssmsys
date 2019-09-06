@@ -10,6 +10,8 @@ public class OutofStockList {
 	private String uniqueId;
 	// 商品编号
 	private Integer goodsId;
+	//商品名称
+	private String goddsNameString;
 	// 出货数量
 	private Integer outofStockNumber;
 	// 出货价格
@@ -41,6 +43,14 @@ public class OutofStockList {
 
 	public Integer getGoodsId() {
 		return goodsId;
+	}
+
+	public String getGoddsNameString() {
+		return goddsNameString;
+	}
+
+	public void setGoddsNameString(String goddsNameString) {
+		this.goddsNameString = goddsNameString;
 	}
 
 	public void setGoodsId(Integer goodsId) {

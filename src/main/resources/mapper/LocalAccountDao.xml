@@ -23,9 +23,9 @@
 		ui.id uiid,
 		ui.name uiname
 		FROM
-		hr_local_account la
+		pssm_local_account la
 		INNER JOIN
-		hr_user_info ui
+		pssm_user_info ui
 		ON
 		ui.id=la.user_id
 	</select>
@@ -40,9 +40,9 @@
 		ui.id uiid,
 		ui.name uiname
 		FROM
-		hr_local_account la
+		pssm_local_account la
 		INNER JOIN
-		hr_user_info ui
+		pssm_user_info ui
 		ON
 		ui.id=la.user_id
 		<where>
@@ -63,7 +63,7 @@
 	<insert id="insertIntoLocalAccountByTargetItem" parameterType="com.supermarket.pssmsys.entity.LocalAccount"
 		useGeneratedKeys="true">
 		INSERT INTO
-		hr_local_account(user_id,account_string,
+		pssm_local_account(user_id,account_string,
 		password_string,create_time,edit_time)
 		VALUES
 		(#{targetItem.userId},#{targetItem.accountString},#{targetItem.passwordString},
@@ -71,7 +71,7 @@
 	</insert>
 	<update id="updateLocalAccountByTargetItem" parameterType="com.supermarket.pssmsys.entity.LocalAccount"
 		>
-		UPDATE hr_local_account
+		UPDATE pssm_local_account
 		<set>
 			<if test="targetItem.accountString!=null">account_string=#{targetItem.accountString},</if>
 			<if test="targetItem.passwordString!=null">password_string=#{targetItem.passwordString},</if>
@@ -83,7 +83,7 @@
 	</update>
 	<delete id="deleteLocalAccountByTargetItem">
 		DELETE FROM
-		hr_local_account
+		pssm_local_account
 		WHERE
 		id=#{targetItem.id}
 	</delete>
